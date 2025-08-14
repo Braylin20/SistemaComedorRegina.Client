@@ -6,6 +6,7 @@ import {TitleComponent} from '../../../shared/components/title/title.component';
 import {FilterComponent} from '../../components/filter/filter.component';
 import {MiniDashboardComponent} from '../../components/mini-dashboard/mini-dashboard.component';
 import {EditModalComponent} from '../../components/edit-modal/edit-modal.component';
+import {baseUrl} from '../../../shared/constants/baseUrl';
 
 @Component({
   selector: 'app-index',
@@ -30,6 +31,7 @@ export class IndexGastosComponent implements OnInit{
   protected showEditModal = signal(false);
 
   public get(){
+    console.log(baseUrl + '/gastos');
     this.gastosService.get().subscribe({
       next: data => this.gastos = data
     })
