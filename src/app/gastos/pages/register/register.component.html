@@ -1,0 +1,63 @@
+<div class="flex justify-center items-center h-screen">
+  <form class="w-[60%] shadow-xl rounded-lg " [formGroup]="gastosForm" (ngSubmit)="save()">
+    <h3 class="text-3xl font-semibold text-center my-3">Registro de gastos</h3>
+
+    <div class="p-5 ">
+      <div class="flex flex-col">
+        <label class="text-lg font-semibold">Fecha</label>
+        <input
+          type="date"
+          class=" border-2 border-gray-200 rounded-lg p-1"
+          [class.border-red-500]="formUtils.isValidField(gastosForm, 'fecha')"
+          formControlName="fecha"
+          [max]="dateUtils.getTodayDateString()"
+        />
+      </div>
+
+      <div class="flex flex-col mt-10">
+        <label class="text-lg font-semibold">Descripci&oacute;n</label>
+        <textarea
+          type="text"
+          class=" border-2 border-gray-200 rounded-lg p-2 placeholder:text-gray-400"
+          [class.border-red-500]="formUtils.isValidField(gastosForm, 'descripcion')"
+          placeholder="Ej: Pago de refrezcos"
+          formControlName="descripcion"
+        >
+        </textarea>
+      </div>
+      @if (formUtils.isValidField(gastosForm,'descripcion')) {
+        <span class="text-red-500">
+          {{ formUtils.getFieldError(gastosForm,'descripcion') }}
+        </span>
+      }
+      <div class="flex justify-end gap-1 mt-5">
+        <div class="flex flex-col">
+          <div class="flex flex-col">
+            <label class="text-lg font-semibold">Monto</label>
+            <input
+              type="number"
+              class=" border-2 border-gray-200 rounded-lg p-1 placeholder:text-gray-400"
+              [class.border-red-500]="formUtils.isValidField(gastosForm, 'monto')"
+              min="0"
+              placeholder="0.00"
+              formControlName="monto"
+            />
+          </div>
+          @if (formUtils.isValidField(gastosForm,'monto')) {
+            <span class="text-red-500 ">
+          {{ formUtils.getFieldError(gastosForm,'monto') }}
+        </span>
+          }
+        </div>
+      </div>
+
+    </div>
+    <footer class="flex justify-center my-5">
+      <button type="submit"
+              class="rounded-lg bg-[#198754] px-5 py-2 text-white hover:cursor-pointer hover:bg-[#157347]" >
+        Registrar Gasto
+      </button>
+    </footer>
+  </form>
+</div>
+

@@ -1,0 +1,87 @@
+<div id="edit-gasto-modal" tabindex="-1"
+     class="overflow-y-auto overflow-x-hidden fixed inset-0 z-50 flex justify-center items-center w-full h-full bg-black/50">
+  <div class="relative p-4 w-full max-w-md max-h-full">
+    <div class="relative bg-white rounded-lg shadow ">
+
+      <!-- Modal header -->
+      <div class="flex items-center justify-between p-4 border-b dark:border-gray-600 border-gray-200 rounded-t">
+        <h3 class="text-lg font-semibold ">
+          Editar Gasto
+        </h3>
+        <button (click)="onCloseEditModal()" type="button"
+                class="text-gray-400 bg-transparent hover:cursor-pointer hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                data-modal-toggle="edit-gasto-modal">
+          <svg class="w-3 h-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M1 1l6 6m0 0l6 6M7 7l6-6M7 7l-6 6"/>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Modal body -->
+      <form class="p-4" [formGroup]="editForm" (ngSubmit)="putGasto()">
+        <div class="grid gap-4 mb-4">
+
+          <!-- Fecha -->
+          <div>
+            <label for="fecha" class="block mb-2 text-sm font-medium ">
+              Fecha
+            </label>
+            <input type="date" id="fecha" formControlName="fecha"
+                   class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5  dark:placeholder-gray-500"
+                   [class.border-red-500]="editForm.controls['fecha'].invalid"
+                   [max]="dateUtils.getTodayDateString()"
+                   required>
+            @if (formUtils.isValidField(editForm, 'fecha')) {
+              <span class="text-red-500">
+              {{ formUtils.getFieldError(editForm, 'fecha') }}
+            </span>
+            }
+          </div>
+          <!-- Descripción -->
+          <div>
+            <label for="descripcion" class="block mb-2 text-sm font-medium ">
+              Descripción
+            </label>
+            <input
+              type="text" id="descripcion" formControlName="descripcion"
+              class="bg-gray-50 border border-gray-300  text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5  dark:placeholder-gray-500 "
+              [class.border-red-500]="editForm.controls['descripcion'].invalid"
+              placeholder="Ej: Descripción del gasto" required>
+            @if (formUtils.isValidField(editForm, 'descripcion')) {
+              <span class="text-red-500">
+              {{ formUtils.getFieldError(editForm, 'descripcion') }}
+            </span>
+            }
+          </div>
+
+
+          <!-- Monto -->
+          <div>
+            <label for="monto" class="block mb-2 text-sm font-medium ">
+              Monto
+            </label>
+            <input type="number" id="monto" formControlName="monto" step="0.01"
+                   class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:placeholder-gray-500 "
+                   [class.border-red-500]="editForm.controls['monto'].invalid"
+                   placeholder="0.00" required>
+            @if (formUtils.isValidField(editForm, 'monto')) {
+              <span class="text-red-500">
+              {{ formUtils.getFieldError(editForm, 'monto') }}
+            </span>
+            }
+          </div>
+
+
+        </div>
+
+        <button type="submit"
+                class="w-full text-white bg-blue-700 hover:cursor-pointer hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+          Guardar Cambios
+        </button>
+      </form>
+
+    </div>
+  </div>
+</div>
+

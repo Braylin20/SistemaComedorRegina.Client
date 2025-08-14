@@ -1,0 +1,9 @@
+<div class="shadow-sm w-[80%] p-4 bg-white rounded-sm mt-2">
+  <div class="flex justify-between items-center ">
+    <div>
+      <h2 class="text-2xl font-semibold">{{title()}}</h2>
+      <span class="text-sm text-gray-600">Gestiona tus {{title()}}</span>
+    </div>
+    <a [routerLink]="['/',title().toLowerCase(), 'register']" class="rounded-lg bg-[#1b6ec2] px-5 py-2 text-white hover:cursor-pointer hover:bg-[#0b5ed7]">Agregar {{title()}}</a>
+  </div>
+</div>

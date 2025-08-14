@@ -1,0 +1,46 @@
+<div class="flex justify-center items-center h-screen">
+  <form class="w-[60%] shadow-xl rounded-lg " [formGroup]="ventasForm" (ngSubmit)="save()">
+    <h3 class="text-3xl font-semibold text-center my-3">Registro de gastos</h3>
+
+    <div class="p-5 ">
+      <div class="flex flex-col">
+        <label class="text-lg font-semibold">Fecha</label>
+        <input
+          type="date"
+          class=" border-2 border-gray-200 rounded-lg p-1"
+          [class.border-red-500]="ventasForm.controls['fecha'].invalid"
+          formControlName="fecha"
+          [max]="dateUtils.getTodayDateString()"
+        />
+      </div>
+      <div class="flex justify-end gap-1 mt-5">
+        <div class="flex flex-col">
+          <div class="flex flex-col">
+            <label class="text-lg font-semibold">Monto</label>
+            <input
+              type="number"
+              class=" border-2 border-gray-200 rounded-lg p-1 placeholder:text-gray-400"
+              [class.border-red-500]="formUtils.isValidField(ventasForm, 'monto')"
+              min="0"
+              placeholder="0.00"
+              formControlName="monto"
+            />
+          </div>
+          @if (formUtils.isValidField(ventasForm,'monto')) {
+            <span class="text-red-500 ">
+          {{ formUtils.getFieldError(ventasForm,'monto') }}
+        </span>
+          }
+        </div>
+      </div>
+
+    </div>
+    <footer class="flex justify-center my-5">
+      <button type="submit"
+              class="rounded-lg bg-[#198754] px-5 py-2 text-white hover:cursor-pointer hover:bg-[#157347]" >
+        Registrar Gasto
+      </button>
+    </footer>
+  </form>
+</div>
+

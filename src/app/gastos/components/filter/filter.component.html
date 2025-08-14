@@ -1,0 +1,63 @@
+
+<div class="shadow-sm w-[80%] p-4 bg-white rounded-sm mt-2">
+
+    <div class="flex flex-col w-[25%] gap-1">
+      <div class="flex gap-10">
+        <div class="flex flex-col gap-1">
+          <label class="text-lg font-semibold">Filtrar por</label>
+          <select
+            class=" w-xs text-sm border-[1.5px] border-gray-400 rounded-lg px-2.5 py-1.5"
+            (change)="onInputSelectChange()"
+            #txtFilterSelect
+          >
+            <option>Todos los movimientos</option>
+            <option value="today">Hoy</option>
+            <option value="month">Mes</option>
+            <option value="3 months">3 meses</option>
+            <option value="year">Año</option>
+            <option value="custom">Personalizado</option>
+          </select>
+
+        </div>
+        @if(endpoint() !== 'ventas'){
+          <div class="flex flex-col gap-1">
+            <label class="text-lg font-semibold">Descripci&oacute;n</label>
+            <input
+              class="text-sm border-[1.5px] border-gray-400 rounded-lg px-2.5 py-1.5 w-xs placeholder:text-gray-400"
+              placeholder="Ej: Pago de refrezcos"
+              #txtInputDescription
+              (keyup)="descriptionInputValue.set(txtInputDescription.value)"
+            />
+          </div>
+        }
+
+      </div>
+      @if(isCustom()){
+        <div class="flex gap-10">
+          <div class="flex flex-col">
+            <label class="text-lg font-semibold">Desde</label>
+            <input
+              type="date"
+              class="w-xs border-2 border-gray-200 rounded-lg p-1"
+              #FromDateValue
+              [value]="dateUtils.getTodayDateString()"
+              [max]="dateUtils.getTodayDateString()"
+              (change)="onDateCustomValueChange(FromDateValue.value)"
+            />
+          </div>
+          <div class="flex flex-col">
+            <label class="text-lg font-semibold">Hasta</label>
+            <input
+              type="date"
+              class="w-xs border-2 border-gray-200 rounded-lg p-1"
+              #ToDateValue
+              [value]="dateUtils.getTodayDateString()"
+              [max]="dateUtils.getTodayDateString()"
+              [min]="FromDateValue.value"
+              (change)="onDateCustomValueChange(ToDateValue.value)"
+            />
+          </div>
+        </div>
+      }
+    </div>
+</div>

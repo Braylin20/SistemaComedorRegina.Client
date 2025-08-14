@@ -1,0 +1,40 @@
+<index-title title="Gastos" class="flex justify-center "></index-title>
+
+<index-filter [list]="gastos" (onListChange)="onGastosChange($event)" endpoint="gastos" class="flex justify-center "></index-filter>
+
+<index-mini-dashboard [gastos]="gastos" class="flex justify-center "></index-mini-dashboard>
+<div class="flex justify-center items-center mt-5">
+  <div class="w-[80%] rounded-lg shadow overflow-hidden max-h-[500px] overflow-y-auto">
+    <table class="w-full">
+      <thead class="bg-white border-b-2 border-gray-200 sticky top-0">
+      <tr>
+        <th class="p-3 text-sm font-semibold tracking-wide">Id</th>
+        <th class="p-3 text-sm font-semibold tracking-wide w-[40%] text-left">Descripción</th>
+        <th class="p-3 text-sm font-semibold tracking-wide">Monto</th>
+        <th class="p-3 text-sm font-semibold tracking-wide">Fecha</th>
+        <th class="p-3 text-sm font-semibold tracking-wide">Acciones</th>
+      </tr>
+      </thead>
+      <tbody class="divide-y divide-gray-100">
+        @for (gasto of gastos; track gasto.gastoId; let idx = $index) {
+          <tr class="text-center bg-white hover:bg-gray-100">
+            <td class="p-3 text-sm text-gray-700">{{ idx + 1 }}</td>
+            <td class="p-3 text-sm text-gray-700 text-left">{{ gasto.descripcion }}</td>
+            <td class="p-3 text-sm text-gray-700">{{ gasto.monto | currency: 'CAD' : 'symbol-narrow' : '1.2-2'}}</td>
+            <td class="p-3 text-sm text-gray-700">{{ gasto.fecha | date:'fullDate' }}</td>
+            <td class=" text-sm text-gray-700">
+              <button (click)="openEditModal(gasto)"
+                      class="rounded-sm bg-[#1b6ec2] px-2 py-1 text-white hover:cursor-pointer hover:bg-[#0d3f89]">
+                <i class="bi bi-pencil-square"></i>
+              </button>
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</div>
+
+@if (showEditModal() ) {
+  <gastos-edit-modal (showEditModal)="closeEditModal($event)" [gastoToEdit]="gastoToEdit()" (onGastosChange)="onGastosChange($event)"></gastos-edit-modal>
+}
